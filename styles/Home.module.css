@@ -127,3 +127,9 @@
     filter: invert(1);
   }
 }
+
+.box {
+  border-radius: 15px;
+  width: 400px;
+  height: 500px;
+}
