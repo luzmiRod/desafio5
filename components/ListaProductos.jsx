@@ -9,8 +9,9 @@ const ListaProductos = () => {
     const [productos, setProductos] = useState([])
 
     const getProductos = async () => {
-        const response = await axios.get('https://peticiones.online/api/series')
-        setProductos(response.data)
+        const response = await axios.get('https://rickandmortyapi.com/api/character')
+        console.log(response.data)
+        setProductos(response.data.results)
       }
     
     
@@ -24,20 +25,22 @@ const ListaProductos = () => {
             sx={{
               width: "90%",
               margin: "0 auto",
-              backgroundColor: "#fff",
+              backgroundImage: "url('https://i.pinimg.com/originals/7a/7c/18/7a7c18ee47a497477431769ca60b9f6d.jpg')",
               borderRadius: "7px",
             }}
           >
             <Container>
               <Grid container spacing={1} my={2} rowSpacing={2}>
-               {productos?.map((producto) => (
+               {productos.map((producto) => (
                   <ProductoCard
                     id={producto.id}
                     key={producto.id}
-                    serie={producto.title}
-                    creador={producto.creator}
+                    name={producto.name}
+                    species={producto.species}
                     imagen={producto.image}
-                    canal={producto.channel}
+                    gender={producto.gender}
+                    status={producto.status}
+
 
                   />
                 ))}
