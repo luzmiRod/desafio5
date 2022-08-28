@@ -7,19 +7,16 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Link from 'next/link'
+import useAuth from '../hook/useAuth'
 
-const pages = ['Iniciar Sesion', 'Registrarse'];
-const settings = ['Salir'];
 
 const ResponsiveAppBar = () => {
+  const auth = useAuth()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { getUserData } = useAuth()
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -54,7 +51,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            Series y ¡donde verlas!
+            ¡Tus personajes favoritos!
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -86,14 +83,24 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {/* //Menu responsive */}
+              <Link href={{ pathname: '/login' }}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Iniciar Sesión</Typography>
+
                 </MenuItem>
-              ))}
+              </Link>
+              <Link href={{ pathname: '/register' }}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Registrarse</Typography>
+
+                </MenuItem>
+              </Link>
+              <MenuItem>
+              <Typography textAlign="center">{auth.getUserData}</Typography>
+            </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -110,48 +117,23 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            series
+            Rick and Morty
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+            <Link href={{ pathname: '/login' }}>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Iniciar Sesión</Typography>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              </MenuItem>
+            </Link>
+            <Link href={{ pathname: '/register' }}>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Registrarse</Typography>
+              </MenuItem>
+            </Link>
+            <MenuItem>
+              <Typography textAlign="center">{auth.getUserData}</Typography>
+            </MenuItem>
           </Box>
         </Toolbar>
       </Container>
